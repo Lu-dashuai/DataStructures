@@ -2,6 +2,8 @@ package jack.linkedlist;
 
 import com.atguigu.tree.Test;
 
+import javax.xml.stream.FactoryConfigurationError;
+
 /**
  * 一些声明信息
  * Description: 单链表实现增删改查<br/>
@@ -18,11 +20,22 @@ public class SingleLinkedListTest {
 //        singleLinkedList.add(new Node(3,"女3"));
 //        singleLinkedList.add(new Node(4,"女4"));
 //        singleLinkedList.add(new Node(3,"女3"));
+        //乱序加入
         singleLinkedList.addByOrder(new Node(1,"女1"));
         singleLinkedList.addByOrder(new Node(3,"女3"));
         singleLinkedList.addByOrder(new Node(2,"女2"));
         singleLinkedList.addByOrder(new Node(4,"女4"));
+        //重复添加
         singleLinkedList.addByOrder(new Node(3,"女3"));
+        //更改已经存在的id
+        singleLinkedList.update(new Node(3,"小美女"));
+        //更改未存在的id
+        singleLinkedList.update(new Node(10,"小美女"));
+
+        //删除存在的id
+        singleLinkedList.del(1);
+        //删除未存在的id
+        singleLinkedList.del(11);
         singleLinkedList.list();
     }
 
@@ -70,7 +83,53 @@ class SingleLinkedList{
             node.next = temp.next; // 2-->3
             temp.next = node;//1--->2
         }
+    }
 
+    /**
+     * 更新某个节点 name
+     * @param node
+     */
+    public void update(Node node){
+        Node temp = head;
+        boolean flag = false;
+        while (true){
+            if (temp.next == null){
+                System.out.println("到最后了~~");
+                break;
+            }
+            if (temp.id == node.id){
+                flag = !flag;
+                temp.name = node.name;
+                break;
+            }
+            temp = temp.next;
+        }
+        if (!flag){
+            System.out.printf("更改时，根本没有这个id【%d】\n",node.id);
+        }
+    }
+
+    /**
+     * 删除某个节点
+     * @param id
+     */
+    public void del(int id){
+        Node temp = head;
+        boolean flag = false;
+        while (true){
+            if (temp.next == null){
+                System.out.println("到最后了~~~");
+                break;
+            }
+            if (temp.next.id == id){//找到被删除的节点的上一个节点
+                flag = !flag;
+                temp.next = temp.next.next;
+                break;
+            }
+
+            temp = temp.next;
+        }
+        if (!flag) System.out.printf("删除时，没找到id：【%d】\n",id);
     }
 
     /**
