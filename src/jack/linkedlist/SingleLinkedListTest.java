@@ -1,6 +1,7 @@
 package jack.linkedlist;
 
 import com.atguigu.tree.Test;
+import jdk.nashorn.internal.ir.Flags;
 
 import javax.xml.stream.FactoryConfigurationError;
 
@@ -37,6 +38,12 @@ public class SingleLinkedListTest {
         //删除未存在的id
         singleLinkedList.del(11);
         singleLinkedList.list();
+
+        int length = singleLinkedList.getLength(singleLinkedList.getHead());
+        System.out.println("length="+length);
+
+        Node lastNode = singleLinkedList.findLastNode(singleLinkedList.getHead(), 3);
+        System.out.println("k-->"+lastNode);
     }
 
 
@@ -45,6 +52,10 @@ public class SingleLinkedListTest {
 class SingleLinkedList{
     //初始化头节点
     private Node head = new Node(0,"");
+
+    public Node getHead() {
+        return head;
+    }
 
     /**
      * 简单添加一个node节点
@@ -144,6 +155,34 @@ class SingleLinkedList{
             System.out.println(temp);
             temp = temp.next;
         }
+    }
+
+    /**
+     * 求单链表的有效数据个数
+     */
+    public int getLength(Node head){
+        if (head.next == null) return 0;
+        int length = 0;
+        Node temp = head.next;
+        while (temp != null) {
+            length++;
+            temp = temp.next;
+        }
+        return length;
+    }
+    /**
+     * 查找单链表的倒数第k个节点
+     */
+    public Node findLastNode(Node head,int k) {
+        if (head.next == null) return null; //第一个节点为null
+        int length = getLength(head);//获取长度
+        if (k <= 0 || k > length) return null; //排除不合法情况
+
+        Node temp = head.next;
+        for (int i = 0; i < length-k ; i++) { // length = 4 , list = [0,1,2,3], k=2 ,temp=0 ,移动2次=length-k=4-2
+            temp = temp.next;
+        }
+        return temp;
     }
 }
 

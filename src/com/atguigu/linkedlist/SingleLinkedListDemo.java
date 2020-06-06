@@ -32,8 +32,7 @@ public class SingleLinkedListDemo {
 		
 		System.out.println("测试逆序打印单链表, 没有改变链表的结构~~");
 		reversePrint(singleLinkedList.getHead());
-		
-/*		
+
 		//加入按照编号的顺序
 		singleLinkedList.addByOrder(hero1);
 		singleLinkedList.addByOrder(hero4);
@@ -62,7 +61,7 @@ public class SingleLinkedListDemo {
 		//测试一下看看是否得到了倒数第K个节点
 		HeroNode res = findLastIndexNode(singleLinkedList.getHead(), 3);
 		System.out.println("res=" + res);
-*/		
+
 		
 	}
 	
